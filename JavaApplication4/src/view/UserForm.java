@@ -1,23 +1,16 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package view;
 
 import business.control.UserControl;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import util.InfraException;
 import util.InvalidAddException;
 import util.InvalidPasswordException;
 import util.InvalidUsernameException;
 
-/**
- *
- * @author aluno
- */
 public class UserForm {
     
     private UserControl uc;
@@ -45,9 +38,10 @@ public class UserForm {
                 System.out.println("Usuario cadastrado!");
             } catch(IOException ex) {
                 System.out.println("Erro inesperado durante a leitura da entrada!");
+                Logger.getLogger(UserForm.class.getName()).log(Level.SEVERE, null, ex);
             } catch (InvalidUsernameException | InvalidPasswordException | InvalidAddException ex ) {
-                System.out.println("O seguinte erro ocorreu: " + ex.getMessage());
-                //Logger.getLogger(UserForm.class.getName()).log(Level.SEVERE, null, ex);
+                System.out.println("O seguinte erro ocorreu:\n" + ex.getMessage());
+                Logger.getLogger(UserForm.class.getName()).log(Level.SEVERE, null, ex);
             }
             System.out.println("Deseja cadastrar outro usuario? Pressione S para continuar, qualquer outra coisa para nao.");
             try {
@@ -56,6 +50,7 @@ public class UserForm {
                 }
             } catch(IOException ex) {
                 System.out.println("Erro inesperado durante a leitura da entrada!");
+                Logger.getLogger(UserForm.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     } 

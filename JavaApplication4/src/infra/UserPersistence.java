@@ -1,14 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package infra;
 
 import business.model.User;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -19,13 +13,13 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import util.InfraException;
 
-/**
- *
- * @author aluno
- */
 public class UserPersistence {
     
     private File file;
+    
+    public UserPersistence(String filename) {
+        file = new File(filename);
+    }
     
     public UserPersistence() {
         file = new File("users.txt");
@@ -41,16 +35,21 @@ public class UserPersistence {
             
             return users;
         } catch(ClassNotFoundException | IOException ex) {
-            throw new InfraException("Erro durante a leitura do banco de dados. Contate o SysAdmin!");
-            // LOGAR
+            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
+            throw new InfraException("Erro ao carregar a base de dados, tente novamente mais tarde!");
         }
     }
     
-    public void saveUsers(Map<String, User> users) throws IOException {
-        FileOutputStream out = new FileOutputStream(file);
-        ObjectOutputStream objectStream = new ObjectOutputStream(out);
-        objectStream.writeObject(users);
-        objectStream.close();
-        out.close();
+    public void saveUsers(Map<String, User> users) throws InfraException {
+        try {
+            FileOutputStream out = new FileOutputStream(file);
+            ObjectOutputStream objectStream = new ObjectOutputStream(out);
+            objectStream.writeObject(users);
+            objectStream.close();
+            out.close();
+        } catch(IOException ex) {
+            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
+            throw new InfraException("Erro ao salvar na base de dados, tente novamente mais tarde!");
+        }
     }
 }
