@@ -13,15 +13,15 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import util.InfraException;
 
+/** Classe que implementa a persistência de dados (i.e. leitura e escrita da base de dados do sistema)
+ * Implementa o padrão de projeto Singleton
+ */
 public class UserPersistence {
     
     private File file;
+    private static UserPersistence instance = new UserPersistence();
     
-    public UserPersistence(String filename) {
-        file = new File(filename);
-    }
-    
-    public UserPersistence() {
+    private UserPersistence() {
         file = new File("users.txt");
     }
     
@@ -51,5 +51,13 @@ public class UserPersistence {
             Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
             throw new InfraException("Erro ao salvar na base de dados, tente novamente mais tarde!");
         }
+    }
+
+    /** Padrão de projeto: Singleton
+     * Garantir que exista apenas um objeto do tipo UserPersistence
+     * @return A única instância de UserPersistence
+     */
+    public static synchronized UserPersistence getInstance() {
+        return instance;
     }
 }

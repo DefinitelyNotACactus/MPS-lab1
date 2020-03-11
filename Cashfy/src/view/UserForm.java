@@ -13,17 +13,21 @@ import util.InvalidUsernameException;
 
 public class UserForm {
     
-    private UserControl uc;
+    private UserControl control;
     
     public UserForm() {
         try {
-            uc = new UserControl();
+            control = new UserControl();
         } catch (InfraException ex) {
             System.out.println(ex.getMessage());
             System.exit(-1);
         }
     }
-    
+
+    /**
+     * Método provisório para tratar da interação do usuário com o sistema
+     */
+    @Deprecated
     public void formMainLoop() {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         System.out.println("Cadastro de usuario");
@@ -34,7 +38,7 @@ public class UserForm {
                 params[0] = br.readLine();
                 System.out.println("Digite uma senha: ");
                 params[1] = br.readLine();
-                uc.add(params);
+                control.add(params);
                 System.out.println("Usuario cadastrado!");
             } catch(IOException ex) {
                 System.out.println("Erro inesperado durante a leitura da entrada!");
@@ -50,11 +54,8 @@ public class UserForm {
                 }
             } catch(IOException ex) {
                 System.out.println("Erro inesperado durante a leitura da entrada!");
-                Logger.getLogger(UserForm.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(UserForm.class.getName()).log(Level.SEVERE, null, ex); // TODO: Escrever o log em um arquivo
             }
         }
     } 
 }
-
-
-    
