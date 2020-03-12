@@ -2,6 +2,7 @@ package business.control;
 
 import java.util.HashMap;
 import business.model.User;
+import infra.FacadeInfra;
 import infra.UserPersistence;
 import java.util.Map;
 import util.InfraException;
@@ -11,12 +12,12 @@ import util.InvalidUsernameException;
 
 public class UserControl {
     
-    private UserPersistence persistence;
+    private FacadeInfra facade;
     private Map<String,User> users;
 
     public UserControl() throws InfraException {
-        persistence = UserPersistence.getInstance();
-        users = persistence.loadUsers();
+        facade = new FacadeInfra();
+        users = facade.loadUsers();
     }
 
     public UserControl(HashMap<String, User> users) {

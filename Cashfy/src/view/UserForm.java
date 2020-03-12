@@ -1,6 +1,7 @@
 package view;
 
-import business.control.UserControl;
+import business.FacadeBusiness;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -13,11 +14,11 @@ import util.InvalidUsernameException;
 
 public class UserForm {
     
-    private UserControl control;
+    private FacadeBusiness facade;
     
     public UserForm() {
         try {
-            control = new UserControl();
+            facade = new FacadeBusiness();
         } catch (InfraException ex) {
             System.out.println(ex.getMessage());
             System.exit(-1);
@@ -38,7 +39,7 @@ public class UserForm {
                 params[0] = br.readLine();
                 System.out.println("Digite uma senha: ");
                 params[1] = br.readLine();
-                control.add(params);
+                facade.add(params);
                 System.out.println("Usuario cadastrado!");
             } catch(IOException ex) {
                 System.out.println("Erro inesperado durante a leitura da entrada!");
