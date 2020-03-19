@@ -39,7 +39,7 @@ public class UserForm {
                 params[0] = br.readLine();
                 System.out.println("Digite uma senha: ");
                 params[1] = br.readLine();
-                facade.add(params);
+                facade.addUser(params);
                 System.out.println("Usuario cadastrado!");
             } catch(IOException ex) {
                 System.out.println("Erro inesperado durante a leitura da entrada!");
