@@ -7,5 +7,5 @@ import util.InvalidUsernameException;
  * Padrão de projeto: Strategy
  */
 public interface Validate {
-    public boolean validate(String input) throws InvalidUsernameException, InvalidPasswordException;
+    boolean validate(String input) throws InvalidUsernameException, InvalidPasswordException;
 }

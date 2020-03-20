@@ -13,19 +13,18 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import util.InfraException;
 
-/** Classe que implementa a persistência de dados (i.e. leitura e escrita da base de dados do sistema)
+/** Classe que implementa a persistência de dados de usuário (i.e. leitura e escrita da base de dados do sistema)
  * Implementa o padrão de projeto Singleton
  */
-public class UserPersistence {
+public class UserPersistence extends Persistence<String, User> {
     
-    private File file;
     private static UserPersistence instance = new UserPersistence();
     
     private UserPersistence() {
-        file = new File("users.txt");
+        super("users.txt");
     }
     
-    public Map<String, User> loadUsers() throws InfraException {
+    public Map<String, User> load() throws InfraException {
         try {
             FileInputStream in = new FileInputStream(file);
             ObjectInputStream objectStream = new ObjectInputStream(in);
@@ -40,7 +39,7 @@ public class UserPersistence {
         }
     }
     
-    public void saveUsers(Map<String, User> users) throws InfraException {
+    public void save(Map<String, User> users) throws InfraException {
         try {
             FileOutputStream out = new FileOutputStream(file);
             ObjectOutputStream objectStream = new ObjectOutputStream(out);

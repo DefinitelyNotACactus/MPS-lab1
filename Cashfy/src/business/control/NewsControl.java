@@ -1,16 +1,17 @@
 package business.control;
 
 import business.model.News;
+import infra.PersistenceFactory;
+import util.InfraException;
 import util.InvalidAddException;
 
-import java.util.HashMap;
 import java.util.Map;
 
 public class NewsControl {
     private Map<String, News> news;
 
-    public NewsControl() {
-        news = new HashMap<>();
+    public NewsControl() throws InfraException {
+        news = new PersistenceFactory().getPersistence("News").load();
     }
 
     public void add(String [] params) throws InvalidAddException {
