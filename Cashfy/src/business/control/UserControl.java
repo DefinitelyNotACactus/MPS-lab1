@@ -36,16 +36,28 @@ public class UserControl {
     public void listAll() {
         // TODO
     }
-    
-    public void list(String login) {
-        // TODO
+
+    /** Procura por um usuário na base de dados utilizando o login deste, listando as informações caso existam.
+     * @param login O login do usuário a ser procurado
+     * @return Uma string informando se o usuário existe e informações sobre este usuário
+     * @throws InvalidUsernameException Caso o login informado não exista
+     */
+    public String list(String login) throws InvalidUsernameException {
+        AccountStatus as = AccountStatusAdapter.getInstance();
+
+        if(users.containsKey(login)) {
+            User target = users.get(login);
+            return "Usuário " + login + " existe e está " + (as.isActive(target) ? "ativo" : "inativo");
+        } else {
+            throw new InvalidUsernameException("Login do usuário informado não existe!");
+        }
     }
     
     public void del(String login) throws InvalidUsernameException {
         if(users.containsKey(login)) {
             users.remove(login);
         } else {
-            throw new InvalidUsernameException("Login do usuario informado nao existe!");
+            throw new InvalidUsernameException("Login do usuário informado não existe!");
         }
     }
 }

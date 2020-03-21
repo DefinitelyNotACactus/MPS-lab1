@@ -1,8 +1,8 @@
 package business.model;
 
 public class User {
-    String login;
-    String password;
+    private String login;
+    private String password;
 
     public User(String login, String password) {
         this.login = login;
@@ -24,6 +24,4 @@ public class User {
     public void setPassword(String pass) {
         this.password = pass;
     }
-    
-    
 }

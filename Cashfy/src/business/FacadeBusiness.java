@@ -28,7 +28,7 @@ public class FacadeBusiness {
         uc.listAll();
     }
 
-    public void listUser(String login) {
+    public void listUser(String login) throws InvalidUsernameException {
         uc.list(login);
     }
 
