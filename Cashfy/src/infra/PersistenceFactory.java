@@ -10,6 +10,8 @@ public class PersistenceFactory {
                 return UserPersistence.getInstance();
             case "News":
                 return NewsPersistence.getInstance();
+            case "Options":
+                return OptionPersistence.getInstance();
             default:
                 return null;
         }
