@@ -63,7 +63,7 @@ public class FacadeBusiness {
     }
     
     public Object executeFOOperation(String op, String[] params) {
-        Command c = (Command) cmds.get(op);
+        Command c = cmds.get(op);
         try {
             return c.execute(params);
         } catch (UnsuccessfulOperationException ex) {
