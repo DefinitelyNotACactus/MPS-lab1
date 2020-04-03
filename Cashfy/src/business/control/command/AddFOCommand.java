@@ -1,19 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package business;
+package business.control.command;
 
 import business.control.FinancialOptionControl;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import util.InvalidAddException;
 import util.UnsuccessfulOperationException;
 
-/**
- *
- * @author pablo
+/** Classe que implementa o comando concreto de adicionar uma nova opção financeira
+ * Implementa o padrão de projeto Command
  */
 public class AddFOCommand implements Command {
 
@@ -24,7 +16,7 @@ public class AddFOCommand implements Command {
     }
     
     @Override
-    public Object execute(String[] params ) throws UnsuccessfulOperationException{
+    public Object execute(String[] params ) throws UnsuccessfulOperationException {
         try {
             FOControl.add(params);
         } catch (InvalidAddException ex) {

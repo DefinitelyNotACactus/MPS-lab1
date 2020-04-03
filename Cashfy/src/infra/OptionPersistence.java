@@ -12,14 +12,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import util.InfraException;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-/**
- *
- * @author pablo
+/** Classe que implementa a persistência de dados de opções financeiras (i.e. leitura e escrita da base de dados do sistema)
+ * Implementa o padrão de projeto Singleton
  */
 public class OptionPersistence extends Persistence<String, FinancialOption> {
 
@@ -61,7 +55,7 @@ public class OptionPersistence extends Persistence<String, FinancialOption> {
     
     /** Padrão de projeto: Singleton
      * Garantir que exista apenas um objeto do tipo OptionPersistence
-     * @return A única instância de UserPersistence
+     * @return A única instância de OptionPersistence
      */
     public static synchronized OptionPersistence getInstance() {
         return instance;

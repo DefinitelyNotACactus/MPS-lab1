@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package business.control;
 
 import business.model.FinancialOption;
@@ -12,6 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 import util.InfraException;
 import util.InvalidAddException;
+import util.UnsuccessfulOperationException;
 
 /**
  *
@@ -19,7 +15,7 @@ import util.InvalidAddException;
  */
 public class FinancialOptionControl {
     
-    private Map<String,FinancialOption> options;
+    private Map<String, FinancialOption> options;
 
     public FinancialOptionControl() throws InfraException {
         options = new PersistenceFactory().getPersistence("Options").load();
@@ -45,20 +41,29 @@ public class FinancialOptionControl {
     public String list(String id)  {
         if(options.containsKey(id)) {
             FinancialOption target = options.get(id);
-            return "Opcao financeira " + id + ":\n"
+            return "Opcao financeira " + target.getId() + ":\n"
                     + " Nome - " + target.getName()
                     + " Valor - " + target.getValue();
-        } else {
-            return "nao encontrado";
         }
+
+        return "não encontrado";
     }
     
-    public void update(String id, int value)  {
+    public void update(String id, int value) throws UnsuccessfulOperationException {
         if(options.containsKey(id)) {
             FinancialOption target = options.get(id);
-            target.setValue(value);
+            target.updateValue(value);
         } else {
-            //TODO
+            throw new UnsuccessfulOperationException("Tentativa de atualizar opção financeira que não existe: " + id);
+        }
+    }
+
+    public void undoUpdate(String id) throws UnsuccessfulOperationException {
+        if(options.containsKey(id)) {
+            FinancialOption target = options.get(id);
+            target.undoUpdate();
+        } else {
+            throw new UnsuccessfulOperationException("Tentativa de atualizar opção financeira que não existe: " + id);
         }
     }
 }
