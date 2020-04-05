@@ -9,7 +9,7 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/** Classe que implementa a persistência de dados de usuário (i.e. leitura e escrita da base de dados do sistema)
+/** Classe que implementa a persistência de dados de notícias (i.e. leitura e escrita da base de dados do sistema)
  * Implementa o padrão de projeto Singleton
  */
 public class NewsPersistence extends Persistence<String, News> {
@@ -50,7 +50,7 @@ public class NewsPersistence extends Persistence<String, News> {
 
     /** Padrão de projeto: Singleton
      * Garantir que exista apenas um objeto do tipo UserPersistence
-     * @return A única instância de UserPersistence
+     * @return A única instância de NewsPersistence
      */
     public static synchronized NewsPersistence getInstance() {
         return instance;

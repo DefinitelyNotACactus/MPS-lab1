@@ -23,8 +23,13 @@ public class NewsControl {
         }
     }
 
-    public void list(String title) {
-        // TODO
+    public String list(String title) {
+        if(news.containsKey(title)) {
+            News target = news.get(title);
+            return target.getTitle() + "\n" + target.getContent();
+        }
+
+        return "não encontrado";
     }
 
     public void listAll() {

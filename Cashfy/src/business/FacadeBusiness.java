@@ -3,9 +3,10 @@ package business;
 import business.control.FinancialOptionControl;
 import business.control.NewsControl;
 import business.control.UserControl;
+import java.util.Map;
 import java.util.HashMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import business.control.command.*;
 import util.InvalidAddException;
 import util.InvalidPasswordException;
 import util.InvalidUsernameException;
@@ -21,17 +22,18 @@ public class FacadeBusiness {
     private NewsControl nc;
     
     private FinancialOptionControl fc;
-    private HashMap<String, Command> cmds;
+    private Map<String, Command> foCommands;
 
     public FacadeBusiness() throws InfraException {
         this.uc = new UserControl();
         this.nc = new NewsControl();
         this.fc = new FinancialOptionControl();
         
-        this.cmds = new HashMap<>();
-        cmds.put("add", new AddFOCommand(fc));
-        cmds.put("search", new SearchFOCommand(fc));
-        cmds.put("update", new UpdateFOCommand(fc));
+        foCommands = new HashMap<>();
+        foCommands.put("add", new AddFOCommand(fc));
+        foCommands.put("search", new SearchFOCommand(fc));
+        foCommands.put("update", new UpdateFOCommand(fc));
+        foCommands.put("undo", new UndoFOUpdateCommand(fc));
     }
 
     public void addUser(String[] params) throws InvalidUsernameException, InvalidPasswordException, InvalidAddException {
@@ -62,14 +64,8 @@ public class FacadeBusiness {
         nc.list(title);
     }
     
-    public Object executeFOOperation(String op, String[] params) {
-        Command c = cmds.get(op);
-        try {
-            return c.execute(params);
-        } catch (UnsuccessfulOperationException ex) {
-            //TODO
-            Logger.getLogger(FacadeBusiness.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return null;
+    public Object executeFOOperation(String op, String[] params) throws UnsuccessfulOperationException {
+        Command c = foCommands.get(op);
+        return c.execute(params);
     }
 }   
