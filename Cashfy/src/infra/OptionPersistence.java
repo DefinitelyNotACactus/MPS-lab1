@@ -20,7 +20,7 @@ public class OptionPersistence extends Persistence<String, FinancialOption> {
     private static OptionPersistence instance = new OptionPersistence();
 
     private OptionPersistence() {
-        super("options.txt");
+        super("./database/options.ser");
     }
 
     @Override

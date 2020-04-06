@@ -21,7 +21,7 @@ public class UserPersistence extends Persistence<String, User> {
     private static UserPersistence instance = new UserPersistence();
     
     private UserPersistence() {
-        super("users.txt");
+        super("./database/users.ser");
     }
     
     public Map<String, User> load() throws InfraException {

@@ -14,6 +14,10 @@ public class NewsControl {
         news = new PersistenceFactory().getPersistence("News").load();
     }
 
+    public NewsControl(Map<String, News> news) throws InfraException {
+        this.news = news;
+    }
+
     public void add(String [] params) throws InvalidAddException {
         if(params.length % 2 != 0) {
             throw new InvalidAddException("Foram informados menos parametros do que o necessario: " + params.length);
@@ -34,5 +38,9 @@ public class NewsControl {
 
     public void listAll() {
         // TODO
+    }
+
+    public void save() throws InfraException {
+        new PersistenceFactory().getPersistence("News").save(news);
     }
 }

@@ -30,7 +30,7 @@ public class FinancialOptionControl {
             throw new InvalidAddException("Foram informados menos parametros do que o necessario: " + params.length);
         }
         for(int i = 0; i < params.length; i += 3) {
-            options.put(params[i], new FinancialOption(Integer.parseInt(params[i]),params[i+1],Integer.parseInt(params[i+2])));
+            options.put(params[i], new FinancialOption(Integer.parseInt(params[i]), params[i+1], Double.parseDouble(params[i+2])));
         }
     }
     
@@ -49,7 +49,7 @@ public class FinancialOptionControl {
         return "não encontrado";
     }
     
-    public void update(String id, int value) throws UnsuccessfulOperationException {
+    public void update(String id, double value) throws UnsuccessfulOperationException {
         if(options.containsKey(id)) {
             FinancialOption target = options.get(id);
             target.updateValue(value);
@@ -65,5 +65,9 @@ public class FinancialOptionControl {
         } else {
             throw new UnsuccessfulOperationException("Tentativa de atualizar opção financeira que não existe: " + id);
         }
+    }
+
+    public void save() throws InfraException {
+        new PersistenceFactory().getPersistence("Options").save(options);
     }
 }

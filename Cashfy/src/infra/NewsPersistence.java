@@ -17,7 +17,7 @@ public class NewsPersistence extends Persistence<String, News> {
     private static NewsPersistence instance = new NewsPersistence();
 
     private NewsPersistence() {
-        super("news.txt");
+        super("./database/news.ser");
     }
 
     public Map<String, News> load() throws InfraException {

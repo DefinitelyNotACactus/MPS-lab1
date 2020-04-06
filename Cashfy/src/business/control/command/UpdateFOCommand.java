@@ -17,7 +17,7 @@ public class UpdateFOCommand implements Command {
     @Override
     public Object execute(String[] params) throws UnsuccessfulOperationException {
         String id = params[0];
-        int value = Integer.parseInt(params[1]);
+        double value = Double.parseDouble(params[1]);
         FOControl.update(id, value);
         return null;
     }

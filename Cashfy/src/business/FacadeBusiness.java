@@ -34,9 +34,10 @@ public class FacadeBusiness {
         foCommands.put("search", new SearchFOCommand(fc));
         foCommands.put("update", new UpdateFOCommand(fc));
         foCommands.put("undo", new UndoFOUpdateCommand(fc));
+        foCommands.put("save", new SaveFOCommand(fc));
     }
 
-    public void addUser(String[] params) throws InvalidUsernameException, InvalidPasswordException, InvalidAddException {
+    public void addUser(String... params) throws InvalidUsernameException, InvalidPasswordException, InvalidAddException {
         uc.add(params);
     }
 
@@ -44,12 +45,16 @@ public class FacadeBusiness {
         uc.listAll();
     }
 
-    public void listUser(String login) throws InvalidUsernameException {
-        uc.list(login);
+    public String listUser(String login) throws InvalidUsernameException {
+        return uc.list(login);
     }
 
     public void delUser(String login) throws InvalidUsernameException {
        uc.del(login);
+    }
+
+    public void saveUsers() throws InfraException {
+        uc.save();
     }
 
     public void addNews(String[] params) throws InvalidAddException {
@@ -60,11 +65,15 @@ public class FacadeBusiness {
         nc.listAll();
     }
 
-    public void listNews(String title) {
-        nc.list(title);
+    public String listNews(String title) {
+        return nc.list(title);
     }
-    
-    public Object executeFOOperation(String op, String[] params) throws UnsuccessfulOperationException {
+
+    public void saveNews() throws InfraException {
+        nc.save();
+    }
+
+    public Object executeFOOperation(String op, String[] params) throws UnsuccessfulOperationException, InfraException {
         Command c = foCommands.get(op);
         return c.execute(params);
     }
