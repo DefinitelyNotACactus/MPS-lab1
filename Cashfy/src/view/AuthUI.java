@@ -34,7 +34,7 @@ public class AuthUI {
         });
 
         try {
-            facade = new FacadeBusiness();
+            facade = FacadeBusiness.getInstance();
             initComponents();
         } catch (InfraException ex) {
             frame.getContentPane().add(new JLabel(ex.getMessage()));

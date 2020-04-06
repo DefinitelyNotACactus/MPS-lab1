@@ -14,9 +14,11 @@ import util.InfraException;
 import util.UnsuccessfulOperationException;
 
 /** Fachada para os serviços de NewsControl e UserControl em Business
- * Implementa o padrão de projeto Facade
+ * Implementa o padrão de projeto Facade e Singleton
  */
 public class FacadeBusiness {
+
+    private static FacadeBusiness instance = null;
 
     private UserControl uc;
     private NewsControl nc;
@@ -24,7 +26,7 @@ public class FacadeBusiness {
     private FinancialOptionControl fc;
     private Map<String, Command> foCommands;
 
-    public FacadeBusiness() throws InfraException {
+    private FacadeBusiness() throws InfraException {
         this.uc = new UserControl();
         this.nc = new NewsControl();
         this.fc = new FinancialOptionControl();
@@ -35,6 +37,18 @@ public class FacadeBusiness {
         foCommands.put("update", new UpdateFOCommand(fc));
         foCommands.put("undo", new UndoFOUpdateCommand(fc));
         foCommands.put("save", new SaveFOCommand(fc));
+    }
+
+    /** Padrão de projeto: Singleton
+     * Garantir que exista apenas um objeto de FacadeBusiness
+     * @return A única instância de FacadeBusiness, no caso desta ser nula cria uma nova instância
+     * @throws InfraException Em caso de erro durante a leitura da base de dados
+     */
+    public static synchronized FacadeBusiness getInstance() throws InfraException {
+        if(instance == null) {
+            instance = new FacadeBusiness();
+        }
+        return instance;
     }
 
     public void addUser(String... params) throws InvalidUsernameException, InvalidPasswordException, InvalidAddException {
