@@ -1,5 +1,6 @@
-package business.control;
+package business.control.strategy;
 
+import business.control.strategy.Validate;
 import util.InvalidUsernameException;
 
 /** Classe que implementa a validação de login

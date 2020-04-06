@@ -1,4 +1,4 @@
-package business.control;
+package business.control.strategy;
 
 import util.InvalidPasswordException;
 import util.InvalidUsernameException;

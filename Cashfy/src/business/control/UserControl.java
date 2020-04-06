@@ -1,6 +1,9 @@
 package business.control;
 
 import java.util.HashMap;
+
+import business.control.strategy.ValidateLogin;
+import business.control.strategy.ValidatePassword;
 import business.model.User;
 import infra.PersistenceFactory;
 

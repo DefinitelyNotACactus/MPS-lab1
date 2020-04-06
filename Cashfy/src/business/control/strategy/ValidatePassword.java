@@ -1,5 +1,6 @@
-package business.control;
+package business.control.strategy;
 
+import business.control.strategy.Validate;
 import util.InvalidPasswordException;
 
 /** Classe que implementa a validação de senha

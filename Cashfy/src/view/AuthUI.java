@@ -19,10 +19,17 @@ public class AuthUI {
 
     private JLabel auxLabel;
 
-    private JButton btAuth;
-    private JButton btRegister;
-
     public AuthUI(int width, int height) {
+        initFrame(width, height);
+        try {
+            facade = FacadeBusiness.getInstance();
+            initComponents();
+        } catch (InfraException ex) {
+            frame.getContentPane().add(new JLabel(ex.getMessage()));
+        }
+    }
+
+    private void initFrame(int width, int height) {
         frame = new JFrame();
         frame.setSize(new Dimension(width, height));
         frame.setLayout(new GridLayout(0, 1));
@@ -32,13 +39,6 @@ public class AuthUI {
                 dispose();
             }
         });
-
-        try {
-            facade = FacadeBusiness.getInstance();
-            initComponents();
-        } catch (InfraException ex) {
-            frame.getContentPane().add(new JLabel(ex.getMessage()));
-        }
     }
 
     private void initComponents() {
@@ -47,10 +47,10 @@ public class AuthUI {
 
         auxLabel = new JLabel("");
 
-        btAuth = new JButton("Autenticar");
+        JButton btAuth = new JButton("Autenticar");
         btAuth.addActionListener(this::btAuthActionPerformed);
 
-        btRegister = new JButton("Registrar-se");
+        JButton btRegister = new JButton("Registrar-se");
         btRegister.addActionListener(this::btRegisterActionPerformed);
 
         frame.getContentPane().add(new JLabel("Cashfy"));

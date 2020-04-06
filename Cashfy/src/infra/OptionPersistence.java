@@ -1,16 +1,6 @@
 package infra;
 
 import business.model.FinancialOption;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import util.InfraException;
 
 /** Classe que implementa a persistência de dados de opções financeiras (i.e. leitura e escrita da base de dados do sistema)
  * Implementa o padrão de projeto Singleton
@@ -23,36 +13,6 @@ public class OptionPersistence extends Persistence<String, FinancialOption> {
         super("./database/options.ser");
     }
 
-    @Override
-    public void save(Map<String, FinancialOption> options) throws InfraException {
-        try {
-            FileOutputStream out = new FileOutputStream(file);
-            ObjectOutputStream objectStream = new ObjectOutputStream(out);
-            objectStream.writeObject(options);
-            objectStream.close();
-            out.close();
-        } catch (IOException ex) {
-            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
-            throw new InfraException("Erro ao salvar na base de dados, tente novamente mais tarde!");
-        }
-    }
-
-    @Override
-    public Map<String, FinancialOption> load() throws InfraException {
-        try {
-            FileInputStream in = new FileInputStream(file);
-            ObjectInputStream objectStream = new ObjectInputStream(in);
-            Map<String, FinancialOption> options = (HashMap) objectStream.readObject();
-            objectStream.close();
-            in.close();
-
-            return options;
-        } catch (ClassNotFoundException | IOException ex) {
-            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
-            throw new InfraException("Erro ao carregar a base de dados, tente novamente mais tarde!");
-        }
-    }
-    
     /** Padrão de projeto: Singleton
      * Garantir que exista apenas um objeto do tipo OptionPersistence
      * @return A única instância de OptionPersistence
