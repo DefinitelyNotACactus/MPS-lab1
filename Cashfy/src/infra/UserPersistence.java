@@ -7,7 +7,7 @@ import business.model.User;
  */
 public class UserPersistence extends Persistence<String, User> {
     
-    private static UserPersistence instance = new UserPersistence();
+    private static UserPersistence instance;
     
     private UserPersistence() {
         super("./database/users.ser");
@@ -18,6 +18,13 @@ public class UserPersistence extends Persistence<String, User> {
      * @return A única instância de UserPersistence
      */
     public static synchronized UserPersistence getInstance() {
+        if(instance == null) {
+        	synchronized (UserPersistence.class) {
+				if(instance == null) {
+					instance = new UserPersistence();
+				}
+			}
+        }
         return instance;
     }
 }
