@@ -10,7 +10,7 @@ public class NewsPersistence extends Persistence<String, News> {
     private static NewsPersistence instance = new NewsPersistence();
 
     private NewsPersistence() {
-        super("./database/news.ser");
+        super("/home/pablo/workspace/MPS-lab2/database/news.ser");
     }
 
     /** Padrão de projeto: Singleton

@@ -10,7 +10,7 @@ public class OptionPersistence extends Persistence<String, FinancialOption> {
     private static OptionPersistence instance = new OptionPersistence();
 
     private OptionPersistence() {
-        super("./database/options.ser");
+        super("/home/pablo/workspace/MPS-lab2/database/options.ser");
     }
 
     /** Padrão de projeto: Singleton

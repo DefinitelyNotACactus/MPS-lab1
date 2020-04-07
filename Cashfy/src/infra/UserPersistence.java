@@ -10,7 +10,7 @@ public class UserPersistence extends Persistence<String, User> {
     private static UserPersistence instance = new UserPersistence();
     
     private UserPersistence() {
-        super("./database/users.ser");
+        super("/home/pablo/workspace/MPS-lab2/database/users.ser");
     }
 
     /** Padrão de projeto: Singleton
