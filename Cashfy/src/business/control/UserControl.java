@@ -1,6 +1,9 @@
 package business.control;
 
 import java.util.HashMap;
+
+import business.control.strategy.ValidateLogin;
+import business.control.strategy.ValidatePassword;
 import business.model.User;
 import infra.PersistenceFactory;
 
@@ -47,17 +50,21 @@ public class UserControl {
 
         if(users.containsKey(login)) {
             User target = users.get(login);
-            return "Usuário " + login + " existe e está " + (as.isActive(target) ? "ativo" : "inativo");
+            return "Usuário " + target.getLogin() + " existe e está " + (as.isActive(target) ? "ativo" : "inativo");
         } else {
             throw new InvalidUsernameException("Login do usuário informado não existe!");
         }
     }
-    
+
     public void del(String login) throws InvalidUsernameException {
         if(users.containsKey(login)) {
             users.remove(login);
         } else {
             throw new InvalidUsernameException("Login do usuário informado não existe!");
         }
+    }
+
+    public void save() throws InfraException {
+        new PersistenceFactory().getPersistence("User").save(users);
     }
 }

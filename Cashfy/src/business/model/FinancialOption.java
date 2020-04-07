@@ -3,16 +3,18 @@ package business.model;
 import business.model.memento.FOCaretaker;
 import business.model.memento.FOMemento;
 
+import java.io.Serializable;
+
 /** Entidade que representa uma opção financeira
  * @author pablo
  */
-public class FinancialOption {
+public class FinancialOption implements Serializable {
     private final int id;
     private final String name;
-    private int value;
+    private double value;
     private FOCaretaker caretaker;
 
-    public FinancialOption(int id, String name, int value) {
+    public FinancialOption(int id, String name, double value) {
         this.id = id;
         this.name = name;
         this.value = value;
@@ -28,12 +30,12 @@ public class FinancialOption {
         return name;
     }
 
-    public int getValue() {
+    public double getValue() {
         return value;
     }
 
     /** Atualiza o valor da opção **/
-    public void updateValue(int value) {
+    public void updateValue(double value) {
         caretaker.addMemento(new FOMemento(this.value));
         this.value = value;
     }

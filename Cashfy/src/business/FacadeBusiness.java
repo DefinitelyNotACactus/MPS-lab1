@@ -14,9 +14,11 @@ import util.InfraException;
 import util.UnsuccessfulOperationException;
 
 /** Fachada para os serviços de NewsControl e UserControl em Business
- * Implementa o padrão de projeto Facade
+ * Implementa o padrão de projeto Facade e Singleton
  */
 public class FacadeBusiness {
+
+    private static FacadeBusiness instance = null;
 
     private UserControl uc;
     private NewsControl nc;
@@ -24,7 +26,7 @@ public class FacadeBusiness {
     private FinancialOptionControl fc;
     private Map<String, Command> foCommands;
 
-    public FacadeBusiness() throws InfraException {
+    private FacadeBusiness() throws InfraException {
         this.uc = new UserControl();
         this.nc = new NewsControl();
         this.fc = new FinancialOptionControl();
@@ -34,9 +36,22 @@ public class FacadeBusiness {
         foCommands.put("search", new SearchFOCommand(fc));
         foCommands.put("update", new UpdateFOCommand(fc));
         foCommands.put("undo", new UndoFOUpdateCommand(fc));
+        foCommands.put("save", new SaveFOCommand(fc));
     }
 
-    public void addUser(String[] params) throws InvalidUsernameException, InvalidPasswordException, InvalidAddException {
+    /** Padrão de projeto: Singleton
+     * Garantir que exista apenas um objeto de FacadeBusiness
+     * @return A única instância de FacadeBusiness, no caso desta ser nula cria uma nova instância
+     * @throws InfraException Em caso de erro durante a leitura da base de dados
+     */
+    public static synchronized FacadeBusiness getInstance() throws InfraException {
+        if(instance == null) {
+            instance = new FacadeBusiness();
+        }
+        return instance;
+    }
+
+    public void addUser(String... params) throws InvalidUsernameException, InvalidPasswordException, InvalidAddException {
         uc.add(params);
     }
 
@@ -44,12 +59,16 @@ public class FacadeBusiness {
         uc.listAll();
     }
 
-    public void listUser(String login) throws InvalidUsernameException {
-        uc.list(login);
+    public String listUser(String login) throws InvalidUsernameException {
+        return uc.list(login);
     }
 
     public void delUser(String login) throws InvalidUsernameException {
        uc.del(login);
+    }
+
+    public void saveUsers() throws InfraException {
+        uc.save();
     }
 
     public void addNews(String[] params) throws InvalidAddException {
@@ -60,11 +79,15 @@ public class FacadeBusiness {
         nc.listAll();
     }
 
-    public void listNews(String title) {
-        nc.list(title);
+    public String listNews(String title) {
+        return nc.list(title);
     }
-    
-    public Object executeFOOperation(String op, String[] params) throws UnsuccessfulOperationException {
+
+    public void saveNews() throws InfraException {
+        nc.save();
+    }
+
+    public Object executeFOOperation(String op, String[] params) throws UnsuccessfulOperationException, InfraException {
         Command c = foCommands.get(op);
         return c.execute(params);
     }
