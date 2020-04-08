@@ -7,7 +7,7 @@ import business.model.News;
  */
 public class NewsPersistence extends Persistence<String, News> {
 
-    private static NewsPersistence instance = new NewsPersistence();
+    private static NewsPersistence instance;
 
     private NewsPersistence() {
         super("./database/news.ser");
@@ -17,7 +17,15 @@ public class NewsPersistence extends Persistence<String, News> {
      * Garantir que exista apenas um objeto do tipo UserPersistence
      * @return A única instância de NewsPersistence
      */
-    public static synchronized NewsPersistence getInstance() {
-        return instance;
+    public static NewsPersistence getInstance() {
+        if(instance == null) {
+        	synchronized (NewsPersistence.class ) {
+				if(instance == null) {
+					instance = new NewsPersistence();
+				}
+			}
+        }
+    	
+    	return instance;
     }
 }

@@ -7,7 +7,7 @@ import business.model.FinancialOption;
  */
 public class OptionPersistence extends Persistence<String, FinancialOption> {
 
-    private static OptionPersistence instance = new OptionPersistence();
+    private static OptionPersistence instance;
 
     private OptionPersistence() {
         super("./database/options.ser");
@@ -18,7 +18,14 @@ public class OptionPersistence extends Persistence<String, FinancialOption> {
      * @return A única instância de OptionPersistence
      */
     public static synchronized OptionPersistence getInstance() {
-        return instance;
+    	if(instance == null) {
+        	synchronized (OptionPersistence.class ) {
+				if(instance == null) {
+					instance = new OptionPersistence();
+				}
+			}
+        }
+    	return instance;
     }
 
 }
