@@ -12,7 +12,7 @@ import util.UnsuccessfulOperationException;
  *
  * @author pablo
  */
-public class FinancialOptionControl implements FinancialList{
+public class FinancialOptionControl {
     
     private Map<String, FinancialOption> options;
 
@@ -35,9 +35,7 @@ public class FinancialOptionControl implements FinancialList{
     }
     
     public void listAll() {
-       for(Map.Entry<String, FinancialOption> fp : options.entrySet()) {
-    	   System.out.println(fp);
-       }
+       // TODO
     }
     
     public String list(String id)  {
