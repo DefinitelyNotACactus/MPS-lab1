@@ -1,5 +1,8 @@
 package business.model;
 
+/** Classe folha
+ * Implementa o padrão de projeto Composite
+ */
 public class Application implements Asset {
 
     private final String ownerName;

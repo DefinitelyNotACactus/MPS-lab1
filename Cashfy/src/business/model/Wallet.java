@@ -3,6 +3,9 @@ package business.model;
 import java.util.ArrayList;
 import java.util.List;
 
+/** Classe composite
+ * Implementa o padrão de projeto Composite
+ */
 public class Wallet implements Asset {
 
     private final String ownerName;

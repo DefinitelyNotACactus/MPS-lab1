@@ -10,6 +10,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 
+/** Classe concreta que constroí a UI para registro de usuários do sistema
+ * Implementa o padrão de projeto Builder
+ */
 public class RegisterUIBuilder extends JPanel implements BuilderUI {
     private JTextField loginField;
     private JPasswordField passwordField;
@@ -55,6 +58,7 @@ public class RegisterUIBuilder extends JPanel implements BuilderUI {
     private void btRegisterActionPerformed(ActionEvent evt) {
         try {
             FacadeBusiness.getInstance().addUser(loginField.getText(), new String(passwordField.getPassword()));
+            auxLabel.setText("Usuário registrado!");
         } catch (InfraException | InvalidAddException | InvalidUsernameException | InvalidPasswordException ex) {
             auxLabel.setText(ex.getMessage());
         }

@@ -7,6 +7,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 
+/** Classe concreta que constroí a UI para autenticação (login) do sistema
+ * Implementa o padrão de projeto Builder
+ */
 public class AuthUIBuilder extends JPanel implements BuilderUI {
     private JTextField loginField;
     private JPasswordField passwordField;

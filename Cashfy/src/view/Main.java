@@ -34,6 +34,7 @@ public class Main extends JFrame {
             FacadeBusiness facade = FacadeBusiness.getInstance();
             facade.saveUsers();
             facade.saveNews();
+            facade.saveWallets();
             facade.executeFOOperation("save", null);
         } catch (UnsuccessfulOperationException | InfraException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage());

@@ -116,4 +116,8 @@ public class FacadeBusiness {
 	public void delWallet(String login) throws InvalidAssetException {
 		wc.del(login);
 	}
+
+	public void saveWallets() throws InfraException {
+		wc.save();
+	}
 }
