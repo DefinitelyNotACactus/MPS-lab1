@@ -6,11 +6,17 @@ import business.model.User;
  * Implementa o padrão de projeto Adapter e Singleton
  */
 public class AccountStatusAdapter extends AccountStatusAPI implements AccountStatus {
-    private static AccountStatus instance = new AccountStatusAdapter();
+    private static AccountStatus instance;
 
     private AccountStatusAdapter() {
     }
-
+    
+    // Foi colocado num bloco static para permitir tratar as possiveis excessoes
+    // que possa ocorrer durante o funcionamento da aplicacao
+    static {
+    	instance = new AccountStatusAdapter();
+    }
+    
     public boolean isActive(User user) {
         return isAccountActive(user, false);
     }
