@@ -1,10 +1,9 @@
 package business.control;
 
-import business.model.FinancialOption;
-import business.model.User;
-import infra.PersistenceFactory;
 import java.util.HashMap;
 import java.util.Map;
+import business.model.FinancialOption;
+import infra.PersistenceFactory;
 import util.InfraException;
 import util.InvalidAddException;
 import util.UnsuccessfulOperationException;
@@ -13,11 +12,12 @@ import util.UnsuccessfulOperationException;
  *
  * @author pablo
  */
-public class FinancialOptionControl {
+public class FinancialOptionControl implements FinancialList{
     
     private Map<String, FinancialOption> options;
 
-    public FinancialOptionControl() throws InfraException {
+    @SuppressWarnings("unchecked")
+	public FinancialOptionControl() throws InfraException {
         options = new PersistenceFactory().getPersistence("Options").load();
     }
 
@@ -35,7 +35,9 @@ public class FinancialOptionControl {
     }
     
     public void listAll() {
-        // TODO
+       for(Map.Entry<String, FinancialOption> fp : options.entrySet()) {
+    	   System.out.println(fp);
+       }
     }
     
     public String list(String id)  {
@@ -67,7 +69,8 @@ public class FinancialOptionControl {
         }
     }
 
-    public void save() throws InfraException {
+    @SuppressWarnings("unchecked")
+	public void save() throws InfraException {
         new PersistenceFactory().getPersistence("Options").save(options);
     }
 }
