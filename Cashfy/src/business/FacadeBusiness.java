@@ -6,12 +6,9 @@ import business.control.UserControl;
 import java.util.Map;
 import java.util.HashMap;
 
+import business.control.WalletControl;
 import business.control.command.*;
-import util.InvalidAddException;
-import util.InvalidPasswordException;
-import util.InvalidUsernameException;
-import util.InfraException;
-import util.UnsuccessfulOperationException;
+import util.*;
 
 /**
  * Fachada para os serviços de NewsControl e UserControl em Business Implementa
@@ -23,6 +20,7 @@ public class FacadeBusiness {
 
 	private UserControl uc;
 	private NewsControl nc;
+	private WalletControl wc;
 
 	private FinancialOptionControl fc;
 	private Map<String, Command> foCommands;
@@ -30,6 +28,7 @@ public class FacadeBusiness {
 	private FacadeBusiness() throws InfraException {
 		this.uc = new UserControl();
 		this.nc = new NewsControl();
+		this.wc = new WalletControl();
 		this.fc = new FinancialOptionControl();
 
 		foCommands = new HashMap<>();
@@ -100,5 +99,21 @@ public class FacadeBusiness {
 	public Object executeFOOperation(String op, String[] params) throws UnsuccessfulOperationException, InfraException {
 		Command c = foCommands.get(op);
 		return c.execute(params);
+	}
+
+	public void listAllWallets() {
+		wc.listAll();
+	}
+
+	public String listWallet(String login) throws InvalidAssetException {
+		return wc.list(login);
+	}
+
+	public void addWallet(String[] params) throws InvalidAddException {
+		wc.add(params);
+	}
+
+	public void delWallet(String login) throws InvalidAssetException {
+		wc.del(login);
 	}
 }

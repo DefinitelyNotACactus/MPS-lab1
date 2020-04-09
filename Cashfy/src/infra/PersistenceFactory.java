@@ -18,6 +18,8 @@ public class PersistenceFactory {
 			return NewsPersistence.getInstance();
 		case "Options":
 			return OptionPersistence.getInstance();
+		case "Wallet":
+			return WalletPersistence.getInstance();
 		default: // Não existe tal tipo
 			throw new InfraException("Erro ao selecionar a seguinte persistência: " + type);
 		}

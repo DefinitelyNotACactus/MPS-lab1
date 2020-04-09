@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Wallet implements Asset {
 
-    private String ownerName;
+    private final String ownerName;
     private List<Asset> assets;
 
     public Wallet(String ownerName) {

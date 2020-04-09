@@ -2,9 +2,9 @@ package business.model;
 
 public class Application implements Asset {
 
-    private String ownerName;
-    private String financialOptionName;
-    private String applicationDate;
+    private final String ownerName;
+    private final String financialOptionName;
+    private final String applicationDate;
 
     private double value;
     private double profitability;
